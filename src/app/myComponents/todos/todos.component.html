@@ -1,6 +1,24 @@
-<app-add-todo></app-add-todo>
-
-<h4>Current Todo List-</h4>
-<div *ngFor="let todo of todos">
-    <app-todo-item [todo]="todo" (todoDelete)="deleteTodo($event)"></app-todo-item> 
+<div class="container">
+    <div class="container">
+        <h1 class="text-center mb-3 my-3">Todo List</h1>
+        <hr class="bg-danger border-2 border-top border-primary" />
+    </div>
+  
+    <app-add-todo (todoAdd)="addTodo($event)"></app-add-todo>
+    <hr class="bg-danger border-2 border-top border-danger" />
+    <h4 class="my-3">Current Todo List-</h4>
+    <div *ngIf="this.todos.length === 0; else elseBlock">
+        No Todo's to Display!
+    </div>
+    <ng-template #elseBlock>
+        <div *ngFor="let todo of todos; index as i">
+        <app-todo-item
+            [todo]="todo"
+            [i]="i"
+            (todoDelete)="deleteTodo($event)"
+            (todoCheckbox)="toggleTodo($event)"
+        ></app-todo-item>
+        </div>
+    </ng-template>
+    <hr class="bg-danger border-2 border-top border-primary" />
 </div>
